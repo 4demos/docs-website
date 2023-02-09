@@ -9,6 +9,8 @@ translationType: machine
 
 [NerdGraph API](/docs/apis/nerdgraph/get-started/introduction-new-relic-nerdgraph)を使用して、ユーザー グループとそれらのグループがアクセスできる対象を表示および管理できます。UI でこれを行う方法については、 [ユーザー管理 UI のドキュメント](/docs/accounts/accounts-billing/new-relic-one-user-management/user-management-ui-and-tasks)を参照してください。
 
+NerdGraph を使用してユーザーを作成し、その情報を表示するには、「 [NerdGraph でユーザーを管理する](/docs/apis/nerdgraph/examples/nerdgraph-manage-users)」を参照してください。
+
 ## 要件 [#requirements]
 
 NerdGraphを介してユーザーとグループを管理するためのいくつかの要件：
@@ -40,6 +42,31 @@ NerdGraphを使用してユーザーを管理する前に：
 3. [グループへのアクセスを許可する : これは、ロールとアカウントへの](#grant-access)グループ アクセスを割り当てるものです。
 
 完了したら、作成したグループにすでにユーザーがいて、そのグループが少なくとも 1 つのロールとアカウントにアクセスできる場合、それらのユーザーは数分以内にアクセスできるようになります (ただし、 [EU 地域の New Relic アカウント](/docs/using-new-relic/welcome-new-relic/get-started/our-eu-us-region-data-centers)の場合、これは可能です)。 20分ほどかかります）。ユーザーがまだそのグループに属していない場合 (新しいグループを作成した場合に該当します)、 [そのグループにユーザーを追加できます](/docs/accounts/accounts-billing/new-relic-one-user-management/account-user-mgmt-tutorial#add-users)。
+
+## クエリ グループ [#query-groups]
+
+特定の認証ドメイン内の既存のグループを照会する例を次に示します。
+
+```graphql
+{
+  actor {
+    organization {
+      userManagement {
+        authenticationDomains(id: "YOUR_AUTHENTICATION_DOMAIN_ID") {
+          authenticationDomains {
+            groups {
+              groups {
+                displayName
+                id
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
 
 ## 既存の役割を照会する [#query-roles]
 
@@ -195,7 +222,7 @@ NerdGraphを使用してユーザーを管理する前に：
 
 ```graphql
 mutation {
-  userManagementCreateGroup(createGroupOptions: {authenticationDomainId: "<var>YOUR_AUTH_DOMAIN</var>", displayName: "<var>GROUP_DISPLAY_NAME</var>"}) {
+  userManagementCreateGroup(createGroupOptions: {authenticationDomainId: "YOUR_AUTH_DOMAIN_ID", displayName: "GROUP_DISPLAY_NAME"}) {
     group {
       displayName
       id
@@ -206,7 +233,7 @@ mutation {
 
 成功した応答：
 
-```graphql
+```json
 {
   "data": {
     "userManagementCreateGroup": {
@@ -225,7 +252,7 @@ mutation {
 
 ```graphql
 mutation {
-  userManagementUpdateGroup(updateGroupOptions: {displayName: "<var>YOUR_UPDATED_GROUP_NAME</var>", id: "<var>GROUP_ID</var>"}) {
+  userManagementUpdateGroup(updateGroupOptions: {displayName: "YOUR_UPDATED_GROUP_NAME", id: "YOUR_GROUP_ID"}) {
     group {
       id
       displayName
@@ -236,7 +263,7 @@ mutation {
 
 成功への対応：
 
-```graphql
+```json
 {
   "data": {
     "userManagementUpdateGroup": {
@@ -251,7 +278,7 @@ mutation {
 
 失敗への対応：
 
-```graphql
+```json
 {
   "data": {
     "userManagementUpdateGroup": null
@@ -282,7 +309,7 @@ mutation {
 
 ```graphql
 mutation {
-  userManagementDeleteGroup(groupOptions: {id: "<var>GROUP_ID</var>"}) {
+  userManagementDeleteGroup(groupOptions: {id: "YOUR_GROUP_ID"}) {
     group {
       id
     }
@@ -292,7 +319,7 @@ mutation {
 
 成功への対応：
 
-```graphql
+```json
 {
   "data": {
     "userManagementDeleteGroup": {
@@ -306,7 +333,7 @@ mutation {
 
 失敗への対応：
 
-```graphql
+```json
 {
   "data": {
     "userManagementDeleteGroup": null
@@ -337,7 +364,7 @@ mutation {
 
 ```graphql
 mutation {
-  userManagementAddUsersToGroups(addUsersToGroupsOptions: {groupIds: [<var>GROUP_ID_1</var>, <var>GROUP_ID_2</var>], userIds: [<var>YOUR_USERS_IDS</var>]}) {
+  userManagementAddUsersToGroups(addUsersToGroupsOptions: {groupIds: [FIRST_GROUP_ID, SECOND_GROUP_ID], userIds: [YOUR_USERS_IDS]}) {
     groups {
       displayName
       id
@@ -348,7 +375,7 @@ mutation {
 
 成功への対応：
 
-```graphql
+```json
 {
   "data": {
     "userManagementAddUsersToGroups": {
@@ -369,7 +396,7 @@ mutation {
 
 失敗への対応：
 
-```graphql
+```json
 {
   "data": {
     "userManagementAddUsersToGroups": null
@@ -400,7 +427,7 @@ mutation {
 
 ```graphql
 mutation {
-  userManagementRemoveUsersFromGroups(removeUsersFromGroupsOptions: {groupIds: [<var>YOUR_GROUP_IDS</var>], userIds: [<var>YOUR_USER_IDS</var>]}) {
+  userManagementRemoveUsersFromGroups(removeUsersFromGroupsOptions: {groupIds: [YOUR_GROUP_IDS], userIds: [YOUR_USER_IDS]}) {
     groups {
       displayName
       id
@@ -411,7 +438,7 @@ mutation {
 
 成功への対応：
 
-```graphql
+```json
 {
   "data": {
     "userManagementRemoveUsersFromGroups": {
@@ -428,7 +455,7 @@ mutation {
 
 失敗への対応：
 
-```graphql
+```json
 {
   "data": {
     "userManagementRemoveUsersFromGroups": null
@@ -459,7 +486,7 @@ mutation {
 
 ```graphql
 mutation {
-  authorizationManagementGrantAccess(grantAccessOptions: {groupId: "<var>YOUR_GROUP_ID</var>", accountAccessGrants: {accountId: "<var>ACCOUNT_ID</var>", roleId: "<var>ROLE_ID</var>"}}) {
+  authorizationManagementGrantAccess(grantAccessOptions: {groupId: "YOUR_GROUP_ID", accountAccessGrants: {accountId: YOUR_ACCOUNT_ID, roleId: "YOUR_ROLE_ID"}}) {
     roles {
       displayName
       accountId
@@ -470,7 +497,7 @@ mutation {
 
 成功への対応：
 
-```graphql
+```json
 {
   "data": {
     "authorizationManagementGrantAccess": {
@@ -499,7 +526,7 @@ mutation {
 
 失敗への対応：
 
-```graphql
+```json
 {
   "data": {
     "authorizationManagementGrantAccess": null
@@ -530,7 +557,7 @@ mutation {
 
 ```graphql
 mutation {
-  authorizationManagementRevokeAccess(revokeAccessOptions: {accountAccessGrants: {accountId: "<var>ACCOUNT_ID</var>", roleId: "<var>ROLE_ID</var>"}, groupId: "<var>GROUP_ID</var>"}) {
+  authorizationManagementRevokeAccess(revokeAccessOptions: {accountAccessGrants: {accountId: YOUR_ACCOUNT_ID, roleId: "YOUR_ROLE_ID"}, groupId: "YOUR_GROUP_ID"}) {
     roles {
       accountId
       displayName
@@ -541,7 +568,7 @@ mutation {
 
 成功への対応：
 
-```graphql
+```json
 {
   "data": {
     "authorizationManagementRevokeAccess": {

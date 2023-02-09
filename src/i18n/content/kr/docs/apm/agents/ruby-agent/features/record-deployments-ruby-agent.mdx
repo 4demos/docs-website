@@ -19,6 +19,10 @@ translationType: machine
 
 이렇게 하면 New Relic 사용자 인터페이스에서 데이터를 탐색할 때 `app_name` 에서 지정한 레이블이 지정된 환경의 인스턴스를 할당합니다. 배포 업로드 스크립트는 해당 레이블을 사용하여 앱을 배포와 연결합니다.
 
+## 사용자 키 추가 [#api-key]
+
+선택적으로 New Relic REST API v2를 통해 배포를 기록할 수 있습니다. 이렇게 하려면 `api_key` 를 사용하여 에이전트 구성에 [사용자 키](/docs/apis/intro-apis/new-relic-api-keys/#overview-keys) 를 제공하십시오. 이 구성이 있는 경우 `newrelic deployments` 명령은 자동으로 REST API v2 배포 엔드포인트를 사용합니다.
+
 ## 명령줄로 기록 [#Manual]
 
 Ruby 에이전트를 gem으로 설치한 경우 `newrelic` 실행 파일을 사용하여 직접 배포를 기록할 수 있습니다.
@@ -39,6 +43,8 @@ $bundle exec newrelic deployment
 deployments [OPTIONS] [description]
 OPTIONS:
    -a, --appname=name           Set the application name.
+   -i, --appid=ID               Set the application ID
+                                If not provided, will connect to the New Relic collector to get it
                                 Default is app_name setting in newrelic.yml
    -e, --environment=name       Override the (RAILS|RUBY)_ENV setting
    -u, --user=USER              Specify the user deploying.
@@ -109,7 +115,7 @@ New Relic 에이전트를 사용하여 Capistrano 2.x 배포를 기록할 수 �
 
 ## Capistrano 구성 사용자 지정 [#customizing]
 
-Capistrano가 원격 빌드 머신에서 배포 알림 레시피를 실행하는 경우 빌드 머신에 [새 유물 라이선스 키](/docs/accounts/install-new-relic/account-setup/license-key) 가 **있어야 합니다** . 유효한 `newrelic.yml` 파일을 빌드 머신에 복사하거나(Capistrano [Before Hook](https://capistranorb.com/documentation/getting-started/before-after/) 사용) Capistrano 구성에서 `set :newrelic_license_key, 'YOUR_LICENSE_KEY'` 를 호출할 수 있습니다.
+Capistrano가 원격 빌드 머신에서 배포 알림 레시피를 실행하는 경우 빌드 머신에 <LicenseKey/> 가 **있어야 합니다** . 유효한 `newrelic.yml` 파일을 빌드 시스템에 복사하거나(Capistrano [Before Hook](https://capistranorb.com/documentation/getting-started/before-after/) 사용 가능) Capistrano 구성에서 `set :newrelic_license_key, 'YOUR_LICENSE_KEY'` 를 호출할 수 있습니다.
 
 Capistrano 변수를 사용하여 일부 배포 정보를 사용자 지정할 수 있습니다. 정의된 경우 기본값을 재정의합니다. 이는 Capistrano 2와 3 모두에 적용됩니다.
 
@@ -165,7 +171,7 @@ Capistrano 변수를 사용하여 일부 배포 정보를 사용자 지정할 �
       </td>
 
       <td>
-        사용할 New Relic [라이센스 키](/docs/accounts/install-new-relic/account-setup/license-key) 입니다. 기본적으로 이는 지정된 `rails_env` 에 대한 `newrelic.yml` 파일의 정의에서 가져옵니다. 이것은 [REST API 키](/docs/apis/getting-started/intro-apis/access-rest-api-keys) 와 동일 **하지 않습니다** .
+        사용할 New Relic <LicenseKey/> 입니다. 기본적으로 이것은 지정된 `rails_env` 에 대한 `newrelic.yml` 파일의 정의에서 가져옵니다. 이는 [REST API 키](/docs/apis/getting-started/intro-apis/access-rest-api-keys) 와 동일 **하지 않습니다** .
       </td>
     </tr>
 

@@ -26,7 +26,7 @@ import distributedtracingMobileLambdaMenu from 'images/distributed-tracing_scree
 
 New Relic APM 에이전트 또는 타사 통합을 사용하는 경우 새 추적 관찰자를 생성하려면:
 
-1. **[one.newrelic.com](https://one.newrelic.com/all-capabilities) > Apps** 으로 이동한 다음 **Your apps** 에서 **Infinite Tracing settings** 을 클릭합니다.
+1. **[one.newrelic.com](https://one.newrelic.com/all-capabilities) > All capabilities > Infinite Tracing settings** 으로 이동합니다.
 
 2. 왼쪽 상단 드롭다운에서 계정을 선택합니다. 여러 계정에 대한 액세스 권한이 있는 경우 무한 추적을 활성화하려는 계정에 있는지 확인하십시오. 관찰자를 추가할 수 없다면 [계정 패밀리당 지역당 한 명의 관찰자](/docs/distributed-tracing/concepts/how-new-relic-distributed-tracing-works/#infinite-architecture) 만 허용하기 때문일 수 있습니다.
 
@@ -59,7 +59,7 @@ New Relic APM 에이전트 또는 타사 통합을 사용하는 경우 새 추�
 
        이 샘플 요청을 보내려면:
 
-       1. 데이터를 보고할 계정의 [라이선스 키](/docs/apis/intro-apis/new-relic-api-keys/#ingest-license-key) 를 가져와서 준비하세요.
+       1. 데이터를 보고할 계정의 <LicenseKey/> 를 가져와 준비합니다.
 
        2. 다음 `curl` 요청을 텍스트 편집기에 복사합니다.
 
@@ -122,17 +122,17 @@ New Relic APM 에이전트 또는 타사 통합을 사용하는 경우 새 추�
             <tbody>
               <tr>
                 <td>
-                  <var>`YOUR_LICENSE_KEY`</var>
+                  `YOUR_LICENSE_KEY`
                 </td>
 
                 <td>
-                  이것을 수집 [라이센스 키로](/docs/apis/intro-apis/new-relic-api-keys/#ingest-license-key) 바꾸십시오.
+                  이를 입수 <LicenseKey/> 바꾸십시오.
                 </td>
               </tr>
 
               <tr>
                 <td>
-                  <var>`YOUR_TRACE_OBSERVER_URL`</var>
+                  `YOUR_TRACE_OBSERVER_URL`
                 </td>
 
                 <td>
@@ -174,7 +174,7 @@ New Relic 브라우저, 모바일 또는 Lambda를 사용하는 경우 새 추�
 
 아직 추적 관찰자를 설정하지 않은 경우 다음을 완료하십시오.
 
-1. **[one.newrelic.com](https://one.newrelic.com/all-capabilities) > Apps** 으로 이동한 다음 **Your apps** 에서 **Infinite Tracing settings** 을 클릭합니다.
+1. **[one.newrelic.com](https://one.newrelic.com/all-capabilities) > All capabilities > Infinite Tracing settings** 으로 이동합니다.
 
 2. 왼쪽 상단 드롭다운에서 계정을 선택합니다. 여러 계정에 대한 액세스 권한이 있는 경우 무한 추적을 활성화하려는 계정에 있는지 확인하십시오. 관찰자를 추가할 수 없다면 [계정 패밀리당 지역당 한 명의 관찰자](/docs/distributed-tracing/concepts/how-new-relic-distributed-tracing-works/#infinite-architecture) 만 허용하기 때문일 수 있습니다.
 
@@ -188,7 +188,7 @@ New Relic 브라우저, 모바일 또는 Lambda를 사용하는 경우 새 추�
    * **ap-southeast-2(미국)**
    * **us-east-2(미국, FedRAMP)**
 
-4. **끝점** 드롭다운에서 **다른 통합** 의 경우 끝점 값을 복사하여 준비합니다. 이 값은 코드 예제에서 <var>YOUR_TRACE_OBSERVER_URL</var> 로 참조됩니다. 이것은 [추적 관찰자](#sample-payload) 를 테스트하는 데 사용됩니다.
+4. **엔드포인트** 드롭다운에서 **기타 통합** 의 경우 엔드포인트 값을 복사하고 준비합니다. 이 값은 코드 예제에서 YOUR_TRACE_OBSERVER_URL로 참조됩니다. [추적 관찰자](#sample-payload) 를 테스트하는 데 사용됩니다.
 
 5. (선택 사항) 추적 관찰자가 작동하는지 확인하려면 샘플 추적 페이로드를 보내는 것이 좋습니다.
 
@@ -205,7 +205,7 @@ New Relic 브라우저, 모바일 또는 Lambda를 사용하는 경우 새 추�
 
        이 샘플 요청을 보내려면:
 
-       1. 데이터를 보고할 계정의 [라이선스 키](/docs/apis/intro-apis/new-relic-api-keys/#ingest-license-key) 를 가져와서 준비하세요.
+       1. 데이터를 보고할 계정의 <LicenseKey/> 를 가져와 준비합니다.
 
        2. 다음 `curl` 요청을 텍스트 편집기에 복사합니다.
 
@@ -268,17 +268,17 @@ New Relic 브라우저, 모바일 또는 Lambda를 사용하는 경우 새 추�
             <tbody>
               <tr>
                 <td>
-                  <var>`YOUR_LICENSE_KEY`</var>
+                  `YOUR_LICENSE_KEY`
                 </td>
 
                 <td>
-                  이것을 [라이센스 키로 바꾸](/docs/apis/intro-apis/new-relic-api-keys/#ingest-license-key) 십시오.
+                  이것을 <LicenseKey/> 십시오.
                 </td>
               </tr>
 
               <tr>
                 <td>
-                  <var>`YOUR_TRACE_OBSERVER_URL`</var>
+                  `YOUR_TRACE_OBSERVER_URL`
                 </td>
 
                 <td>
@@ -340,7 +340,7 @@ New Relic 브라우저, 모바일 또는 Lambda를 사용하는 경우 새 추�
 
 UI에서 브라우저, 모바일 및 Lambda에 대한 구성을 완료하려면:
 
-1. 추적 관찰자 앱( **[one.newrelic.com](https://one.newrelic.com/all-capabilities) > Apps > Your Apps > Infinite Tracing settings** )으로 돌아갑니다.
+1. 추적 관찰자 앱( **[one.newrelic.com](https://one.newrelic.com/all-capabilities) > All capabilities > Infinite Tracing settings** )으로 돌아갑니다.
 
 2. 추적 관찰자의 경우 행 끝으로 이동하여 세 개의 점을 클릭한 다음 **모바일, 브라우저, 람다 소스 수정** 을 클릭합니다.
 

@@ -54,7 +54,7 @@ Nagios 통합을 설치하려면:
     id="linux-install"
     title="리눅스 설치"
   >
-    1. 파일 이름 `nri-nagios` 을(를) 사용하여 [통합 설치](/docs/install-integrations-package) 지침을 따르십시오.
+    1. [인프라 에이전트를 설치하고](/docs/integrations/host-integrations/installation/install-infrastructure-host-integrations/#install) `INTEGRATION_FILE_NAME` 변수를 `nri-nagios` 로 바꿉니다.
 
     2. 디렉토리를 통합 폴더로 변경하십시오.
 
@@ -90,7 +90,7 @@ Nagios 통합을 설치하려면:
     2. Windows 명령 프롬프트에서 설치하려면 다음을 실행하십시오.
 
        ```
-       msiexec.exe /qn /i <var>PATH\TO\</var>nri-nagios-amd64.msi
+       msiexec.exe /qn /i PATH\TO\nri-nagios-amd64.msi
        ```
 
     3. Integrations 디렉터리 `C:\Program Files\New Relic\newrelic-infra\integrations.d\` 에서 다음을 실행하여 샘플 구성 파일의 복사본을 만듭니다.
@@ -258,7 +258,7 @@ Nagios와 관련된 특정 설정은 구성 파일의 `env` 섹션을 사용하�
 
 ### 라벨/맞춤 속성 [#labels]
 
-환경 변수를 사용하여 라이센스 키와 같은 구성 설정을 제어한 다음 인프라 에이전트에 전달할 수 있습니다. 통과 기능을 사용하는 방법에 대한 지침 [은 인프라 에이전트 구성](/docs/infrastructure/new-relic-infrastructure/configuration/configure-infrastructure-agent#passthrough) 을 참조하십시오.
+환경 변수는 <LicenseKey/> 와 같은 구성 설정을 제어하는 데 사용할 수 있으며 그런 다음 인프라 에이전트에 전달됩니다. 통과 기능을 사용하는 방법에 대한 지시사항 [은 인프라 에이전트 구성](/docs/infrastructure/new-relic-infrastructure/configuration/configure-infrastructure-agent#passthrough) 을 참조하십시오.
 
 레이블을 사용하여 측정항목을 꾸밀 수도 있습니다. 레이블을 사용하면 메트릭에 키/값 쌍 속성을 추가할 수 있습니다. 이러한 레이블을 사용하여 메트릭을 쿼리, 필터링 또는 그룹화할 수 있습니다.
 

@@ -37,7 +37,7 @@ Gradle 및 Android Studio로 Android 앱을 구성하는 이러한 절차는 New
        id="project-level"
        title="프로젝트 수준 build.gradle 파일:"
      >
-       이 예에서 <var>AGENT_VERSION</var> 은 에이전트 버전 번호를 나타냅니다. [에이전트 릴리스 정보](/docs/release-notes/mobile-release-notes/android-release-notes) 를 참조하고 최신 버전을 사용하십시오.
+       이 예에서 AGENT_VERSION은 에이전트 버전 번호를 나타냅니다. [에이전트 릴리스 정보](/docs/release-notes/mobile-release-notes/android-release-notes) 를 참조하고 최신 버전을 사용하십시오.
 
        ```
        buildscript {
@@ -46,7 +46,7 @@ Gradle 및 Android Studio로 Android 앱을 구성하는 이러한 절차는 New
          }
 
          dependencies {
-           classpath "com.newrelic.agent.android:agent-gradle-plugin:<a href="/docs/release-notes/mobile-release-notes/android-release-notes"><var>AGENT_VERSION</var></a>"
+           classpath "com.newrelic.agent.android:agent-gradle-plugin:<a href="/docs/release-notes/mobile-release-notes/android-release-notes">AGENT_VERSION</a>"
          }
        }
        ```
@@ -56,7 +56,7 @@ Gradle 및 Android Studio로 Android 앱을 구성하는 이러한 절차는 New
        id="app-level"
        title="앱 수준 build.gradle 파일:"
      >
-       이 예에서 <var>AGENT_VERSION</var> 은 에이전트 버전 번호를 나타냅니다. [에이전트 릴리스 정보](/docs/release-notes/mobile-release-notes/android-release-notes) 를 참조하고 최신 버전을 사용하십시오.
+       이 예에서 AGENT_VERSION은 에이전트 버전 번호를 나타냅니다. [에이전트 릴리스 정보](/docs/release-notes/mobile-release-notes/android-release-notes) 를 참조하고 최신 버전을 사용하십시오.
 
        ```
        repositories {
@@ -67,28 +67,31 @@ Gradle 및 Android Studio로 Android 앱을 구성하는 이러한 절차는 New
        apply plugin: 'newrelic'
 
        dependencies {
-         implementation 'com.newrelic.agent.android:android-agent:<a href="/docs/release-notes/mobile-release-notes/android-release-notes"><var>AGENT_VERSION</var></a>'
+         implementation 'com.newrelic.agent.android:android-agent:<a href="/docs/release-notes/mobile-release-notes/android-release-notes">AGENT_VERSION</a>'
        }
        ```
      </Collapser>
    </CollapserGroup>
 
-2. **ProGuard 또는 DexGuard:** 프로젝트의 루트 디렉터리( `projectname/app` )에서 다음 줄과 함께 `newrelic.properties` 파일을 추가합니다.
+2. **(선택 사항)** ProGuard 또는 DexGuard의 경우:
+
+   ㅏ. 프로젝트의 루트 디렉터리( `projectname/app` )에서 다음 줄과 함께 `newrelic.properties` 파일을 추가합니다.
 
    ```
-   com.newrelic.application_token=<var>GENERATED_TOKEN</var>
+   com.newrelic.application_token=GENERATED_TOKEN
    ```
 
-3. New Relic과 함께 [ProGuard 또는 DexGuard를 사용하기 위해 필요한 추가 구성 단계를](/docs/mobile-monitoring/new-relic-mobile-android/install-configure/configure-proguard-or-dexguard-android-apps) 따르십시오.
+   비. [Android 앱용 ProGuard 또는 DexGuard 구성](docs/mobile-monitoring/new-relic-mobile-android/install-configure/configure-proguard-or-dexguard-android-apps) 에서 구성 단계를 완료합니다. 그런 다음 이 페이지로 돌아와 다음 단계로 이동합니다.
 
-4. 앱 권한 설정: Android 앱이 `AndroidManifest.xml` 파일에 다음 행을 추가하여 `INTERNET` 및 `ACCESS_NETWORK_STATE` 권한을 요청하는지 확인합니다.
+
+3. 앱 권한 설정: Android 앱이 `AndroidManifest.xml` 파일에 다음 행을 추가하여 `INTERNET` 및 `ACCESS_NETWORK_STATE` 권한을 요청하는지 확인합니다.
 
    ```
    <uses-permission android:name="android.permission.INTERNET" />
    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
    ```
 
-5. New Relic의 모바일 모니터링 에이전트를 시작하려면: **기본 활동** ( **매니페스트** 에 정의된 대로)에서 `NewRelic` 클래스를 가져옵니다.
+4. New Relic의 모바일 모니터링 에이전트를 시작하려면: **기본 활동** ( **매니페스트** 에 정의된 대로)에서 `NewRelic` 클래스를 가져옵니다.
 
    ```
    import com.newrelic.agent.android.NewRelic;
@@ -98,17 +101,17 @@ Gradle 및 Android Studio로 Android 앱을 구성하는 이러한 절차는 New
      예상치 못한 동작이나 불안정한 동작이 발생할 수 있으므로 다른 클래스에서 모바일 모니터링 에이전트를 시작하는 것은 지원하지 않습니다.
    </Callout>
 
-6. 모바일 모니터링을 초기화하려면: `onCreate()` 메서드에서 다음 호출을 추가합니다.
+5. 모바일 모니터링을 초기화하려면: `onCreate()` 메서드에서 다음 호출을 추가합니다.
 
    ```
-   NewRelic.withApplicationToken("<var>GENERATED_TOKEN</var>").start(this.getApplication());
+   NewRelic.withApplicationToken("GENERATED_TOKEN").start(this.getApplication());
    ```
 
-7. 선택 사항: [로깅 수준](/docs/mobile-monitoring/new-relic-mobile-android/api-guides/android-agent-configuration-feature-flags#logging) 을 변경합니다.
+6. 선택 사항: [로깅 수준](/docs/mobile-monitoring/new-relic-mobile-android/api-guides/android-agent-configuration-feature-flags#logging) 을 변경합니다.
 
-8. 애플리케이션을 빌드하고 실행하려면 프로젝트를 정리한 다음 에뮬레이터나 기기에서 앱을 실행하여 트래픽을 생성합니다.
+7. 애플리케이션을 빌드하고 실행하려면 프로젝트를 정리한 다음 에뮬레이터나 기기에서 앱을 실행하여 트래픽을 생성합니다.
 
-9. 몇 분 기다렸다가 [**요약** 페이지](/docs/mobile-monitoring/mobile-monitoring-ui/mobile-app-pages/mobile-apps-overview-page) 에서 Android 앱에 대한 데이터를 봅니다. **[one.newrelic.com](https://one.newrelic.com/all-capabilities) > Mobile > (앱 선택)**으로 이동합니다.
+8. 몇 분 기다렸다가 [**요약** 페이지](/docs/mobile-monitoring/mobile-monitoring-ui/mobile-app-pages/mobile-apps-overview-page) 에서 Android 앱에 대한 데이터를 봅니다. **[one.newrelic.com](https://one.newrelic.com/all-capabilities) > Mobile > (앱 선택)**으로 이동합니다.
 
 Android 설치에 문제가 있거나 모바일 모니터링 UI에 데이터가 표시되지 않는 경우 [문제 해결 절차](/docs/mobile-monitoring/new-relic-mobile-android/troubleshoot/no-data-appears-android) 를 따르세요.
 
@@ -135,7 +138,7 @@ multidex 앱에 대한 각 DEX 파일을 빌드할 때 빌드 도구는 앱이 �
 
    #Keep New Relic in the main dex
    -keep class com.newrelic.** { *; }
-   -keep class com.<var>mypackage</var>.activities.** { *; }
+   -keep class com.mypackage.activities.** { *; }
    ```
 
 2. 다음 코드를 앱 수준 `build.gradle` 파일에 병합합니다.

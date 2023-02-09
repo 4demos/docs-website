@@ -32,6 +32,7 @@ const autoLinkHeaders = {
 };
 
 module.exports = {
+  trailingSlash: 'always',
   flags: {
     DEV_SSR: true,
     PRESERVE_FILE_DOWNLOAD_CACHE: true,
@@ -105,10 +106,6 @@ module.exports = {
       options: {
         name: 'translated-nav',
         path: `${__dirname}/src/i18n/nav`,
-        ignore:
-          process.env.BUILD_I18N === 'false'
-            ? [`${__dirname}/src/i18n/nav/*`]
-            : [],
       },
     },
     {
@@ -227,10 +224,17 @@ module.exports = {
       },
     },
     `gatsby-transformer-yaml`,
+    `gatsby-transformer-plaintext`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        path: `./src/nav/`,
+        path: `./src/nav/generatedNav.yml`,
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `./src/nav/style-guide.yml`,
       },
     },
     {
@@ -369,6 +373,10 @@ module.exports = {
                 subject
                 releaseDate(fromNow: false)
                 version
+                feature
+                bug
+                security
+                ingest
               }
               excerpt(pruneLength: 5000)
             }
@@ -382,6 +390,10 @@ module.exports = {
               agent: getAgentName(frontmatter.subject),
               date: frontmatter.releaseDate,
               version: frontmatter.version,
+              feature: frontmatter.feature,
+              bug: frontmatter.bug,
+              security: frontmatter.security,
+              ingest: frontmatter.ingest,
               description: excerpt,
             }))
             .filter(({ date, agent }) => Boolean(date && agent)),
@@ -405,6 +417,7 @@ module.exports = {
         allPageHeaders: [
           'Referrer-Policy: no-referrer-when-downgrade',
           'Content-Security-Policy: frame-ancestors *.newrelic.com',
+          'Cache-Control: no-cache',
         ],
       },
     },
@@ -458,7 +471,10 @@ module.exports = {
             'elixir',
             'erlang',
             'gettext',
+            'gradle',
+            'groovy',
             'ini',
+            'kotlin',
             'pascal',
             'parser',
             'nginx',
@@ -536,6 +552,7 @@ module.exports = {
             process.env.FEEDBACK_RECAPTCHA_TOKEN ||
             '6Lfn8wUiAAAAANBY-ZtKg4V9b4rdGZtJuAng62jo',
         },
+        newRelicRequestingServicesHeader: 'docs-website',
       },
     },
   ],

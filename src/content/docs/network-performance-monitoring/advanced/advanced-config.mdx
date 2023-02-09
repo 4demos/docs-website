@@ -13,7 +13,7 @@ If you want to explore all the options you can use when configuring the monitori
 
 ## SNMP-base YAML sample file [#snmp-base-yml-template]
 
-Here's an example of the various configuration options available in the `snmp-base.yaml` file used by the **ktranslate** docker image to poll for SNMP and flow data devices. You can also see a heavily-commented sample in the [ktranslate repository on GitHub](https://github.com/kentik/ktranslate/blob/main/config/snmp.yaml.sample).
+Here's an example of the various configuration options available in the `snmp-base.yaml` file used by the **ktranslate** docker image to poll for SNMP and flow data devices. You can also see a heavily-commented sample in the [KTranslate repository on GitHub](https://github.com/kentik/ktranslate/blob/main/config/snmp.yaml.sample).
 
 ```yaml
 devices:
@@ -146,6 +146,7 @@ trap:
   version: ""
   transport: ""
   v3_config: null
+  trap_only: false
 discovery:
   cidrs:
   - 10.0.0.0/24
@@ -633,6 +634,18 @@ global:
             [SNMP v3 config](#snmpv3-config) to use. Only used if `version: v3`.
           </td>
         </tr>
+
+        <tr>
+          <td>
+            trap_only
+          </td>
+
+          <td/>
+
+          <td>
+            Setting this to `true` will prevent the container from attempting any SNMP or ICMP polling, used in cases where you want a container that only listens for incoming traps.
+          </td>
+        </tr>
       </tbody>
     </table>
   </Collapser>
@@ -946,7 +959,7 @@ global:
           </td>
 
           <td>
-            Time in milliseconds SNMP queries timeout. This can be overridden per device using the `devices.<deviceName>.timeout_ms` attribute. By default, it's set to `5000`
+            Time in milliseconds SNMP queries timeout. This can be overridden per device using the `devices.<deviceName>.timeout_ms` attribute. By default, it's set to `3000`
           </td>
         </tr>
 
